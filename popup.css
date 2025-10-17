@@ -1,0 +1,246 @@
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --success-color: #28a745;
+    --success-hover: #218838;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #4a4a4a;
+    --text-color: #333;
+    --border-color: #dee2e6;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    width: 320px;
+    background-color: transparent; /* Allows card to have shadow */
+    color: var(--text-color);
+    margin: 0;
+    padding: 8px; /* Gives space for shadow */
+}
+
+.card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.header h1 {
+    font-size: 18px;
+    color: var(--dark-gray);
+    margin: 0;
+}
+
+.header .logo-icon {
+    color: var(--primary-color);
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.btn:active {
+    transform: scale(0.98);
+}
+.btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-secondary { background-color: var(--secondary-color); color: white; }
+.btn-secondary:hover { background-color: var(--secondary-hover); }
+
+.btn-success { background-color: var(--success-color); color: white; }
+.btn-success:hover { background-color: var(--success-hover); }
+
+.btn-danger { background-color: var(--danger-color); color: white; }
+.btn-danger:hover { background-color: var(--danger-hover); }
+
+/* Stop Sync Button State */
+#sync-btn.syncing {
+    background-color: var(--danger-color);
+}
+#sync-btn.syncing:hover {
+    background-color: var(--danger-hover);
+}
+#sync-btn .stop-icon { display: none; }
+#sync-btn .sync-icon { display: block; }
+#sync-btn.syncing .stop-icon { display: block; }
+#sync-btn.syncing .sync-icon { display: none; }
+
+
+/* --- Status Bar --- */
+.status-bar {
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.status-bar .status-icon {
+    width: 16px;
+    height: 16px;
+}
+.status-idle { background-color: var(--medium-gray); color: #555; }
+.status-syncing { background-color: #cfe2ff; color: #052c65; }
+.status-complete { background-color: #d1e7dd; color: #0a3622; }
+.status-error { background-color: #f8d7da; color: #58151c; }
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.status-syncing .status-icon {
+    animation: spin 1s linear infinite;
+}
+
+/* --- Info Banner --- */
+.info-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #052c65; 
+    background-color: #cfe2ff;
+    border-radius: 6px;
+    
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.info-banner.visible {
+    max-height: 100px;
+    opacity: 1;
+    margin: -5px 0 5px 0;
+    padding: 10px;
+}
+
+.info-banner svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+
+/* --- Settings Panel --- */
+#settings-panel {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.5s ease-in-out;
+    margin-top: 0;
+    border-top: 1px solid transparent;
+}
+#settings-panel.visible {
+    max-height: 400px; /* Large enough to fit content */
+    opacity: 1;
+    margin-top: 10px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+}
+
+.current-path-display-wrapper {
+    font-size: 13px;
+    padding: 10px;
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.current-path-display-wrapper strong {
+    color: var(--primary-hover);
+    word-break: break-all;
+    font-weight: 600;
+}
+.current-path-display-wrapper svg {
+    width: 16px;
+    height: 16px;
+    color: var(--secondary-color);
+    flex-shrink: 0;
+}
+
+#path-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#path-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.info {
+    font-size: 11px;
+    color: #6c757d;
+    background-color: var(--medium-gray);
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 1.4;
+    margin: 4px 0 0 0;
+}
+
